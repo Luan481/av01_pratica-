@@ -45,8 +45,10 @@ clienteRouter.patch("/:id", async (request: Request<{ id: string, dados: CriarCl
     const id = request.params.id
     const dados = request.body
 
+    await clienteService.update(id, dados)
+
     try {
-        return response.status(200).json(await clienteService.update(id, dados))
+        return response.status(200).json({message: "Cliente atualizado com sucesso"})
     }
     catch (error) {
         return response.status(500).json({ message: "Erro interno" })
@@ -57,9 +59,10 @@ clienteRouter.patch("/:id", async (request: Request<{ id: string, dados: CriarCl
 clienteRouter.delete("/:id", async (request: Request<{ id: string }, {}, {}>, response: Response) => {
 
     const id = request.params.id
+    await clienteService.delete(id)
 
     try {
-        return response.status(200).json(await clienteService.delete(id))
+        return response.status(200).json({message: "Cliente deletado com sucesso"})
     }
     catch (error) {
         return response.status(500).json({ message: "Erro interno" })
